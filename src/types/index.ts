@@ -48,3 +48,64 @@ export interface IOrderResponse {
     id: string;
     total: number;
 }
+
+/* Данные события, которым представление карточки сообщает о действии с конкретным товаром. */
+export interface ICardEvent {
+    id: string;
+}
+
+/* Данные, которые отображает шапка страницы. */
+export interface IHeaderData {
+    counter: number;
+}
+
+/* Данные, которые отображает каталог товаров на главной странице. */
+export interface IGalleryData {
+    catalog: HTMLElement[];
+}
+
+/* Данные, которые отображает модальное окно. */
+export interface IModalData {
+    content: HTMLElement;
+}
+
+/* Данные товара, которые отображают все три вида карточек. */
+export type TCardBase = Pick<IProduct, 'id' | 'title' | 'price'>;
+
+/* Данные карточки товара в каталоге. */
+export type TCardCatalog = TCardBase & Pick<IProduct, 'category' | 'image'>;
+
+/* Данные подробной карточки товара. Подпись и доступность кнопки готовит презентер,
+потому что они зависят от содержимого корзины. */
+export type TCardPreview = TCardCatalog & Pick<IProduct, 'description'> & {
+    buttonLabel: string;
+    buttonDisabled: boolean;
+};
+
+/* Данные карточки товара в корзине, index - порядковый номер товара в списке. */
+export type TCardBasket = TCardBase & {
+    index: number;
+};
+
+/* Данные, которые отображает корзина. */
+export interface IBasketData {
+    items: HTMLElement[];
+    total: number;
+}
+
+/* Состояние формы: доступность кнопки отправки и текст сообщения об ошибках. */
+export interface IFormState {
+    valid: boolean;
+    errors: string;
+}
+
+/* Данные формы с выбором способа оплаты и адресом доставки. */
+export type TOrderForm = IFormState & Pick<IBuyer, 'payment' | 'address'>;
+
+/* Данные формы с контактами покупателя. */
+export type TContactsForm = IFormState & Pick<IBuyer, 'email' | 'phone'>;
+
+/* Данные, которые отображает сообщение об успешном оформлении заказа. */
+export interface ISuccessData {
+    total: number;
+}

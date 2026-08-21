@@ -1,4 +1,5 @@
 import { IBuyer, TBuyerErrors, TPayment } from '../../types';
+import { IEvents } from '../base/Events';
 
 const ERROR_MESSAGES = {
     payment: 'Не выбран вид оплаты',
@@ -14,6 +15,8 @@ export class Buyer {
     protected email = '';
     protected phone = '';
 
+    constructor(protected events: IEvents) {}
+
     // Записывает только переданные поля, остальные сохраняют свои значения
     setData(data: Partial<IBuyer>): void {
         const { payment, address, email, phone } = { ...this.getData(), ...data };
@@ -22,6 +25,8 @@ export class Buyer {
         this.address = address;
         this.email = email;
         this.phone = phone;
+
+        this.events.emit('buyer:changed');
     }
 
     getData(): IBuyer {
@@ -38,6 +43,8 @@ export class Buyer {
         this.address = '';
         this.email = '';
         this.phone = '';
+
+        this.events.emit('buyer:changed');
     }
 
     // Верно заполненные поля в объект ошибок не попадают

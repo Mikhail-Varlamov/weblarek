@@ -1,8 +1,11 @@
 import { IProduct } from '../../types';
+import { IEvents } from '../base/Events';
 
 // Хранит товары, выбранные покупателем для покупки
 export class Cart {
     protected items: IProduct[] = [];
+
+    constructor(protected events: IEvents) {}
 
     getItems(): IProduct[] {
         return this.items;
@@ -10,14 +13,17 @@ export class Cart {
 
     addItem(item: IProduct): void {
         this.items = [...this.items, item];
+        this.events.emit('cart:changed');
     }
 
     removeItem(item: IProduct): void {
         this.items = this.items.filter((cartItem) => cartItem.id !== item.id);
+        this.events.emit('cart:changed');
     }
 
     clear(): void {
         this.items = [];
+        this.events.emit('cart:changed');
     }
 
     // Товар без цены считается за ноль

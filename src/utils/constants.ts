@@ -16,6 +16,20 @@ export const categoryMap = {
   'другое': 'card__category_other',
 };
 
+/* Название валюты магазина и подпись цены товаров, которые не продаются. */
+export const CURRENCY_NAME = 'синапсов';
+export const PRICELESS_LABEL = 'Бесценно';
+
+/* Категория, модификатор которой используется для товаров с неизвестной категорией. */
+export const DEFAULT_CATEGORY = 'другое';
+
+/* Подписи кнопки в подробной карточке товара. */
+export const cardButtonLabels = {
+  buy: 'Купить',
+  remove: 'Удалить из корзины',
+  unavailable: 'Недоступно',
+};
+
 export const settings = {
 
 };

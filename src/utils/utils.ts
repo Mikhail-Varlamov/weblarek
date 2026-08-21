@@ -1,3 +1,5 @@
+import { CURRENCY_NAME, PRICELESS_LABEL } from './constants';
+
 export function pascalToKebab(value: string): string {
     return value.replace(/([a-z0–9])([A-Z])/g, "$1-$2").toLowerCase();
 }
@@ -135,4 +137,11 @@ export function createElement<
         }
     }
     return element;
+}
+
+/**
+ * Приводит цену товара к виду, в котором она выводится на странице
+ */
+export function formatPrice(value: number | null): string {
+    return value === null ? PRICELESS_LABEL : `${value} ${CURRENCY_NAME}`;
 }
