@@ -49,9 +49,9 @@ export interface IOrderResponse {
     total: number;
 }
 
-/* Данные события, которым представление карточки сообщает о действии с конкретным товаром. */
-export interface ICardEvent {
-    id: string;
+/* Обработчики действий пользователя, которые карточка товара получает в конструкторе. */
+export interface ICardActions {
+    onClick: () => void;
 }
 
 /* Данные, которые отображает шапка страницы. */
@@ -70,7 +70,7 @@ export interface IModalData {
 }
 
 /* Данные товара, которые отображают все три вида карточек. */
-export type TCardBase = Pick<IProduct, 'id' | 'title' | 'price'>;
+export type TCardBase = Pick<IProduct, 'title' | 'price'>;
 
 /* Данные карточки товара в каталоге. */
 export type TCardCatalog = TCardBase & Pick<IProduct, 'category' | 'image'>;
@@ -87,10 +87,11 @@ export type TCardBasket = TCardBase & {
     index: number;
 };
 
-/* Данные, которые отображает корзина. */
+/* Данные, которые отображает корзина. Поле valid отвечает за доступность кнопки оформления. */
 export interface IBasketData {
     items: HTMLElement[];
     total: number;
+    valid: boolean;
 }
 
 /* Состояние формы: доступность кнопки отправки и текст сообщения об ошибках. */

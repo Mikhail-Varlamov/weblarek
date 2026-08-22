@@ -23,10 +23,13 @@ export class Basket extends Component<IBasketData> {
 
     set items(value: HTMLElement[]) {
         this.listElement.replaceChildren(...value);
-        this.orderButton.disabled = value.length === 0;
     }
 
     set total(value: number) {
         this.totalElement.textContent = formatPrice(value);
+    }
+
+    set valid(value: boolean) {
+        this.orderButton.disabled = !value;
     }
 }

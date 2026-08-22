@@ -1,7 +1,6 @@
 import { IModalData } from '../../types';
 import { ensureElement } from '../../utils/utils';
 import { Component } from '../base/Component';
-import { IEvents } from '../base/Events';
 
 const ACTIVE_CLASS = 'modal_active';
 
@@ -10,18 +9,18 @@ export class Modal extends Component<IModalData> {
     protected closeButton: HTMLButtonElement;
     protected contentElement: HTMLElement;
 
-    constructor(container: HTMLElement, protected events: IEvents) {
+    constructor(container: HTMLElement) {
         super(container);
 
         this.closeButton = ensureElement<HTMLButtonElement>('.modal__close', container);
         this.contentElement = ensureElement<HTMLElement>('.modal__content', container);
 
         this.closeButton.addEventListener('click', () => {
-            this.events.emit('modal:close');
+            this.close();
         });
         this.container.addEventListener('click', (event) => {
             if (event.target === this.container) {
-                this.events.emit('modal:close');
+                this.close();
             }
         });
     }

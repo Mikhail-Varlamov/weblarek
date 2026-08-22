@@ -8,14 +8,14 @@ export class CardPreview extends ProductCard<TCardPreview> {
     protected descriptionElement: HTMLElement;
     protected buyButton: HTMLButtonElement;
 
-    constructor(container: HTMLElement, events: IEvents) {
-        super(container, events);
+    constructor(container: HTMLElement, protected events: IEvents) {
+        super(container);
 
         this.descriptionElement = ensureElement<HTMLElement>('.card__text', container);
         this.buyButton = ensureElement<HTMLButtonElement>('.card__button', container);
 
         this.buyButton.addEventListener('click', () => {
-            this.emitCardEvent('card:buy');
+            this.events.emit('preview:toggle');
         });
     }
 
